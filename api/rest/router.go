@@ -4,6 +4,167 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Users
+
+// GetUser godoc
+//
+//	@Summary		Get user by id
+//	@Description	Return user with all meta info by specific id
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		int	true	"user ID"
+//
+//	@Success		200	{object}	User
+//
+//	@Failure		400	{object}	RestError
+//	@Failure		422	{object}	RestError
+//	@Failure		500	{object}	RestError
+//	@Failure		502	{object}	RestError
+//
+//	@Router			/users/{id} [get]
+func GetUser(c *gin.Context) {
+	// some logic
+}
+
+// CreateUser godoc
+//
+//	@Summary		Create new users
+//	@Description	Create users with all filled fields
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		CreateUserModel	true	"CreateUserModel object"
+//
+//	@Success		201		{object}	User
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/users/ [post]
+func CreateUser(c *gin.Context) {
+	// some logic
+}
+
+// UpdateUser godoc
+//
+//	@Summary		Update user by id
+//	@Description	Return updated user
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		UpdateUserModel	true	"UpdateUserModel object"
+//
+//	@Success		202		{object}	User
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		404		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/users/{id} [patch]
+func UpdateUser(_ *gin.Context) {
+	// some logic
+}
+
+// DeleteUser godoc
+//
+//	@Summary		Delete users by id
+//	@Description	Delete users by specific id
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path	int	true	"user ID"
+//
+//	@Success		204
+//
+//	@Failure		400	{object}	RestError
+//	@Failure		404	{object}	RestError
+//	@Failure		409	{object}	RestError
+//	@Failure		500	{object}	RestError
+//	@Failure		502	{object}	RestError
+//
+//	@Router			/users/{id} [delete]
+func DeleteUser(_ *gin.Context) {
+	// some logic
+}
+
+// SubscribeToUser godoc
+//
+//	@Summary		Subscribe To User
+//	@Description	Return Subscribe To User Model
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		SubscriptionModel	true	"SubscriptionModel object"
+//
+//	@Success		202		{object}	Subscription
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		404		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/users/{id}/subscribe [patch]
+func SubscribeToUser(c *gin.Context) {
+	// some logic
+}
+
+// UnsubscribeToUser godoc
+//
+//	@Summary		Unsubscribe To User
+//	@Description	Return Unsubscribe To User Model
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		SubscriptionModel	true	"SubscriptionModel object"
+//
+//	@Success		202		{object}	Subscription
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		404		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/users/{id}/unsubscribe [patch]
+func UnsubscribeToUser(c *gin.Context) {
+	// some logic
+}
+
+// GetAllUserFollowers godoc
+//
+//	@Summary		Get all user followers
+//	@Description	Return all info about user followers
+//	@Tags			users
+//	@Accept			json
+//	@Produce		json
+//	@Param			limit	path		int	true	"limit for page view"
+//	@Param			offset	path		int	true	"offset for page view"
+//	@Param			id		path		int	true	"user ID"
+//
+//	@Success		200		{array}		User
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/users/followers/{id} [get]
+func GetAllUserFollowers(c *gin.Context) {
+	// some logic
+}
+
+// Posts
+
 // GetPost godoc
 //
 //	@Summary		Get post by id
@@ -366,8 +527,8 @@ func DeleteLocations(_ *gin.Context) {
 //	@Tags			locations
 //	@Accept			json
 //	@Produce		json
-//	@Param			limit	path		int		true	"limit for page view"
-//	@Param			offset	path		int		true	"offset for page view"
+//	@Param			limit	path		int				true	"limit for page view"
+//	@Param			offset	path		int				true	"offset for page view"
 //	@Param			body	body		LocationModel	true	"LocationModel object"
 //
 //	@Success		201		{object}	Comment
