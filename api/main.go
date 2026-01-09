@@ -24,6 +24,22 @@ func main() {
 
 	v1 := r.Group("/api/v1")
 	{
+		users := v1.Group("/users")
+		{
+			users.GET("/:id", rest.GetUser)
+			users.POST("/", rest.CreateUser)
+			users.PATCH("/:id", rest.UpdateUser)
+			users.DELETE("/:id", rest.DeleteUser)
+
+			users.PATCH("/:id/subscribe", rest.SubscribeToUser)
+			users.PATCH("/:id/unsubscribe", rest.UnsubscribeToUser)
+		}
+
+		followers := users.Group("/followers")
+		{
+			followers.GET("/:id", rest.GetAllUserFollowers)
+		}
+
 		posts := v1.Group("/posts")
 		{
 			posts.GET("/:id", rest.GetPost)

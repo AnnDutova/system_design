@@ -31,6 +31,21 @@ definitions:
       text:
         type: string
     type: object
+  rest.CreateUserModel:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        items:
+          type: integer
+        type: array
+    required:
+    - email
+    - name
+    - password
+    type: object
   rest.Location:
     properties:
       created:
@@ -111,6 +126,20 @@ definitions:
         example: Object with id=%s doesn't exist
         type: string
     type: object
+  rest.Subscription:
+    properties:
+      author_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  rest.SubscriptionModel:
+    properties:
+      author_id:
+        type: string
+      user_id:
+        type: string
+    type: object
   rest.UpdateCommentModel:
     properties:
       last_modified:
@@ -134,6 +163,42 @@ definitions:
         type: string
     required:
     - last_modified
+    type: object
+  rest.UpdateUserModel:
+    properties:
+      email:
+        type: string
+      last_modified:
+        type: string
+      name:
+        type: string
+      password:
+        items:
+          type: integer
+        type: array
+    required:
+    - last_modified
+    type: object
+  rest.User:
+    properties:
+      created:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      last_modified:
+        type: string
+      name:
+        type: string
+      password:
+        items:
+          type: integer
+        type: array
+    required:
+    - email
+    - name
+    - password
     type: object
 host: localhost:8080
 info:
@@ -941,6 +1006,309 @@ paths:
       summary: Search posts By Location name
       tags:
       - locations
+  /users/:
+    post:
+      consumes:
+      - application/json
+      description: Create users with all filled fields
+      parameters:
+      - description: CreateUserModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.CreateUserModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Create new users
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete users by specific id
+      parameters:
+      - description: user ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Delete users by id
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Return user with all meta info by specific id
+      parameters:
+      - description: user ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get user by id
+      tags:
+      - users
+    patch:
+      consumes:
+      - application/json
+      description: Return updated user
+      parameters:
+      - description: UpdateUserModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UpdateUserModel'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/rest.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Update user by id
+      tags:
+      - users
+  /users/{id}/subscribe:
+    patch:
+      consumes:
+      - application/json
+      description: Return Subscribe To User Model
+      parameters:
+      - description: SubscriptionModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.SubscriptionModel'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/rest.Subscription'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Subscribe To User
+      tags:
+      - users
+  /users/{id}/unsubscribe:
+    patch:
+      consumes:
+      - application/json
+      description: Return Unsubscribe To User Model
+      parameters:
+      - description: SubscriptionModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.SubscriptionModel'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/rest.Subscription'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Unsubscribe To User
+      tags:
+      - users
+  /users/followers/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Return all info about user followers
+      parameters:
+      - description: limit for page view
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: offset for page view
+        in: path
+        name: offset
+        required: true
+        type: integer
+      - description: user ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/rest.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get all user followers
+      tags:
+      - users
 securityDefinitions:
   BasicAuth:
     type: basic

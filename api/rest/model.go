@@ -7,6 +7,20 @@ import (
 )
 
 type (
+	User struct {
+		ID           types.UUID `json:"id"`
+		Name         string     `json:"name" validate:"required"`
+		Email        string     `json:"email" validate:"required,email"`
+		Password     []byte     `json:"password" validate:"required,password"`
+		Created      time.Time  `json:"created"`
+		LastModified string     `json:"last_modified"`
+	}
+
+	Subscription struct {
+		AuthorID types.UUID `json:"author_id"`
+		UserID   types.UUID `json:"user_id"`
+	}
+
 	Post struct {
 		ID           types.UUID `json:"id"`
 		Text         string     `json:"text"`
@@ -58,6 +72,23 @@ type (
 )
 
 type (
+	CreateUserModel struct {
+		Name     string `json:"name" validate:"required"`
+		Email    string `json:"email" validate:"required,email"`
+		Password []byte `json:"password" validate:"required,password"`
+	}
+
+	UpdateUserModel struct {
+		Name         string `json:"name"`
+		Email        string `json:"email"`
+		Password     []byte `json:"password"`
+		LastModified string `json:"last_modified" validate:"required"`
+	}
+
+	SubscriptionModel struct {
+		AuthorID types.UUID `json:"author_id"`
+		UserID   types.UUID `json:"user_id"`
+	}
 	CreatePostModel struct {
 		Text       string     `json:"text"`
 		LocationID types.UUID `json:"location_id"`
