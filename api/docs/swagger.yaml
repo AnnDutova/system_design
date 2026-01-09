@@ -1,0 +1,947 @@
+basePath: /api/v1
+definitions:
+  rest.Comment:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      last_modified:
+        type: string
+      text:
+        type: string
+      user_id:
+        type: string
+    type: object
+  rest.CreateCommentModel:
+    properties:
+      post_id:
+        type: string
+      text:
+        type: string
+    type: object
+  rest.CreatePostModel:
+    properties:
+      location_id:
+        type: string
+      media:
+        items:
+          $ref: '#/definitions/rest.Media'
+        type: array
+      text:
+        type: string
+    type: object
+  rest.Location:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      last_modified:
+        type: string
+      name:
+        example: Hamunaptra,Egypt
+        type: string
+    required:
+    - name
+    type: object
+  rest.LocationModel:
+    properties:
+      name:
+        type: string
+    type: object
+  rest.Media:
+    properties:
+      photo:
+        items:
+          type: integer
+        type: array
+      type:
+        type: string
+    type: object
+  rest.Post:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/rest.Comment'
+        type: array
+      created:
+        type: string
+      id:
+        type: string
+      last_modified:
+        type: string
+      location_id:
+        type: string
+      media:
+        items:
+          $ref: '#/definitions/rest.Media'
+        type: array
+      text:
+        type: string
+      user_id:
+        type: string
+    type: object
+  rest.Rating:
+    properties:
+      created:
+        type: string
+      last_modified:
+        type: string
+      point:
+        type: integer
+    required:
+    - point
+    type: object
+  rest.RatingModel:
+    properties:
+      point:
+        type: integer
+    required:
+    - point
+    type: object
+  rest.RestError:
+    properties:
+      additional_info:
+        example: "127"
+        type: string
+      error_type:
+        type: string
+      message:
+        example: Object with id=%s doesn't exist
+        type: string
+    type: object
+  rest.UpdateCommentModel:
+    properties:
+      last_modified:
+        type: string
+      post_id:
+        type: string
+      text:
+        type: string
+    type: object
+  rest.UpdatePostModel:
+    properties:
+      last_modified:
+        type: string
+      location_id:
+        type: string
+      media:
+        items:
+          $ref: '#/definitions/rest.Media'
+        type: array
+      text:
+        type: string
+    required:
+    - last_modified
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API for getting, creating, updating  and deleting posts and other supported
+    stuff
+  title: SocialNetworkSysDsgn
+  version: "1.0"
+paths:
+  /comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete comment by specific id
+      parameters:
+      - description: comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Delete comment by id
+      tags:
+      - comments
+    patch:
+      consumes:
+      - application/json
+      description: Update comment by it id
+      parameters:
+      - description: UpdateCommentModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UpdateCommentModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Update comment
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      description: Create comment by it id
+      parameters:
+      - description: CreateCommentModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.CreateCommentModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Create comment
+      tags:
+      - comments
+  /locations/:
+    get:
+      consumes:
+      - application/json
+      description: Return all locations
+      parameters:
+      - description: limit for page view
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: offset for page view
+        in: path
+        name: offset
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/rest.Location'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get all locations
+      tags:
+      - locations
+  /locations/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete location by specific id
+      parameters:
+      - description: location ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Delete location by id
+      tags:
+      - locations
+    patch:
+      consumes:
+      - application/json
+      description: Update location by it id
+      parameters:
+      - description: LocationModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.LocationModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Location'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Update location
+      tags:
+      - locations
+    post:
+      consumes:
+      - application/json
+      description: Create new location
+      parameters:
+      - description: LocationModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.LocationModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Location'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Create location
+      tags:
+      - locations
+  /locations/{id}/posts:
+    get:
+      consumes:
+      - application/json
+      description: Get all posts by locations
+      parameters:
+      - description: limit for page view
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: offset for page view
+        in: path
+        name: offset
+        required: true
+        type: integer
+      - description: location ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/rest.Post'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get all posts by locations
+      tags:
+      - locations
+  /posts/:
+    get:
+      consumes:
+      - application/json
+      description: Return all posts by limit (default 25) and offset
+      parameters:
+      - description: limit for page view
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: offset for page view
+        in: path
+        name: offset
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/rest.Post'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: Create post with all filled fields
+      parameters:
+      - description: CreatePostModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.CreatePostModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Create new Post
+      tags:
+      - posts
+  /posts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete post by specific id
+      parameters:
+      - description: post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Delete post by id
+      tags:
+      - posts
+    get:
+      consumes:
+      - application/json
+      description: Return post with all meta info by specific id
+      parameters:
+      - description: post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get post by id
+      tags:
+      - posts
+    patch:
+      consumes:
+      - application/json
+      description: Return updated post
+      parameters:
+      - description: UpdatePostModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UpdatePostModel'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            $ref: '#/definitions/rest.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Update post by id
+      tags:
+      - posts
+  /posts/{id}/comments:
+    get:
+      consumes:
+      - application/json
+      description: Return comments from post by specific id
+      parameters:
+      - description: limit for page view
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: offset for page view
+        in: path
+        name: offset
+        required: true
+        type: integer
+      - description: post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Get all post comments
+      tags:
+      - posts
+  /posts/{id}/rating:
+    get:
+      consumes:
+      - application/json
+      description: Return rating of specific post
+      parameters:
+      - description: post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.Rating'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Retur post rating
+      tags:
+      - posts
+  /rating/:
+    post:
+      consumes:
+      - application/json
+      description: Create rating by it id
+      parameters:
+      - description: RatingModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.RatingModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Rating'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Create rating
+      tags:
+      - rating
+  /rating/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete rating by specific id
+      parameters:
+      - description: rating ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Delete rating by id
+      tags:
+      - rating
+    patch:
+      consumes:
+      - application/json
+      description: Update rating by it id
+      parameters:
+      - description: RatingModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.RatingModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Rating'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Update rating
+      tags:
+      - rating
+  /search/filter-fields:
+    get:
+      consumes:
+      - application/json
+      description: Search posts By Location name
+      parameters:
+      - description: limit for page view
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: offset for page view
+        in: path
+        name: offset
+        required: true
+        type: integer
+      - description: LocationModel object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/rest.LocationModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.RestError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/rest.RestError'
+      summary: Search posts By Location name
+      tags:
+      - locations
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
