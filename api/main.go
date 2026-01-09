@@ -3,8 +3,11 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
+	_ "github.com/AnnDutova/system_design/api/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+
+	"github.com/AnnDutova/system_design/api/rest"
 )
 
 //	@title			SocialNetworkSysDsgn
@@ -23,32 +26,39 @@ func main() {
 	{
 		posts := v1.Group("/posts")
 		{
-			posts.GET("/:id", GetPost)
-			posts.GET("/", GetPosts)
-			posts.POST("/", CreatePost)
-			posts.PATCH("/:id", UpdatePost)
-			posts.DELETE("/:id", DeletePost)
+			posts.GET("/:id", rest.GetPost)
+			posts.GET("/", rest.GetPosts)
+			posts.POST("/", rest.CreatePost)
+			posts.PATCH("/:id", rest.UpdatePost)
+			posts.DELETE("/:id", rest.DeletePost)
 
-			posts.GET("/:id/comments", GetPostComments)
-			posts.GET("/:id/rating", GetPostRating)
+			posts.GET("/:id/comments", rest.GetPostComments)
+			posts.GET("/:id/rating", rest.GetPostRating)
+		}
+
+		rating := v1.Group("/rating")
+		{
+			rating.POST("/", rest.SetRating)
+			rating.PATCH("/:id", rest.UpdateRating)
+			rating.DELETE("/:id", rest.DeleteRating)
 		}
 
 		comments := v1.Group("/comments")
 		{
-			comments.POST("/", CreateComment)
-			comments.PATCH("/:id", UpdateComment)
-			comments.DELETE("/:id", DeleteComment)
-		}
-
-		search := v1.Group("/search")
-		{
-			search.GET("/", SearchByLocation)
+			comments.POST("/", rest.CreateComment)
+			comments.PATCH("/:id", rest.UpdateComment)
+			comments.DELETE("/:id", rest.DeleteComment)
 		}
 
 		locations := v1.Group("/locations")
 		{
-			locations.GET("/", GetAllLocations)
-			locations.GET("/:id/posts", GetPostsByLocation)
+			locations.POST("/", rest.CreateLocations)
+			locations.PATCH("/:id", rest.UpdateLocations)
+			locations.DELETE("/:id", rest.DeleteLocations)
+
+			locations.GET("/", rest.GetAllLocations)
+			locations.GET("/:id/posts", rest.GetPostsByLocation)
+			locations.GET("/filter-fields", rest.SearchByLocation)
 		}
 
 	}

@@ -1,4 +1,4 @@
-package main
+package rest
 
 import (
 	"github.com/gin-gonic/gin"
@@ -139,7 +139,7 @@ func GetPostComments(_ *gin.Context) {
 
 // GetPostRating godoc
 //
-//	@Summary		Retur post reating
+//	@Summary		Retur post rating
 //	@Description	Return rating of specific post
 //	@Tags			posts
 //	@Accept			json
@@ -155,6 +155,73 @@ func GetPostComments(_ *gin.Context) {
 //
 //	@Router			/posts/{id}/rating [get]
 func GetPostRating(_ *gin.Context) {
+	// some logic
+}
+
+// Rating
+
+// SetRating godoc
+//
+//	@Summary		Create rating
+//	@Description	Create rating by it id
+//	@Tags			rating
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		RatingModel	true	"RatingModel object"
+//
+//	@Success		201		{object}	Rating
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/rating/ [post]
+func SetRating(_ *gin.Context) {
+	// some logic
+}
+
+// UpdateRating godoc
+//
+//	@Summary		Update rating
+//	@Description	Update rating by it id
+//	@Tags			rating
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		RatingModel	true	"RatingModel object"
+//
+//	@Success		201		{object}	Rating
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/rating/{id} [patch]
+func UpdateRating(_ *gin.Context) {
+	// some logic
+}
+
+// DeleteRating godoc
+//
+//	@Summary		Delete rating by id
+//	@Description	Delete rating by specific id
+//	@Tags			rating
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path	int	true	"rating ID"
+//
+//	@Success		204
+//	@Failure		400	{object}	RestError
+//	@Failure		404	{object}	RestError
+//	@Failure		409	{object}	RestError
+//	@Failure		500	{object}	RestError
+//	@Failure		502	{object}	RestError
+//
+//	@Router			/rating/{id} [delete]
+func DeleteRating(_ *gin.Context) {
 	// some logic
 }
 
@@ -225,18 +292,83 @@ func DeleteComment(_ *gin.Context) {
 	// some logic
 }
 
-// Search
+// Locations
+
+// CreateLocations godoc
+//
+//	@Summary		Create location
+//	@Description	Create new location
+//	@Tags			locations
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		LocationModel	true	"LocationModel object"
+//
+//	@Success		201		{object}	Location
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/locations/{id} [post]
+func CreateLocations(_ *gin.Context) {
+	// some logic
+}
+
+// UpdateLocations godoc
+//
+//	@Summary		Update location
+//	@Description	Update location by it id
+//	@Tags			locations
+//	@Accept			json
+//	@Produce		json
+//	@Param			body	body		LocationModel	true	"LocationModel object"
+//
+//	@Success		201		{object}	Location
+//
+//	@Failure		400		{object}	RestError
+//	@Failure		409		{object}	RestError
+//	@Failure		422		{object}	RestError
+//	@Failure		500		{object}	RestError
+//	@Failure		502		{object}	RestError
+//
+//	@Router			/locations/{id} [patch]
+func UpdateLocations(_ *gin.Context) {
+	// some logic
+}
+
+// DeleteLocations godoc
+//
+//	@Summary		Delete location by id
+//	@Description	Delete location by specific id
+//	@Tags			locations
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path	int	true	"location ID"
+//
+//	@Success		204
+//	@Failure		400	{object}	RestError
+//	@Failure		404	{object}	RestError
+//	@Failure		409	{object}	RestError
+//	@Failure		500	{object}	RestError
+//	@Failure		502	{object}	RestError
+//
+//	@Router			/locations/{id} [delete]
+func DeleteLocations(_ *gin.Context) {
+	// some logic
+}
 
 // SearchByLocation godoc
 //
 //	@Summary		Search posts By Location name
 //	@Description	Search posts By Location name
-//	@Tags			comments
+//	@Tags			locations
 //	@Accept			json
 //	@Produce		json
 //	@Param			limit	path		int		true	"limit for page view"
 //	@Param			offset	path		int		true	"offset for page view"
-//	@Param			body	body		Search	true	"Search object"
+//	@Param			body	body		LocationModel	true	"LocationModel object"
 //
 //	@Success		201		{object}	Comment
 //
@@ -246,12 +378,10 @@ func DeleteComment(_ *gin.Context) {
 //	@Failure		500		{object}	RestError
 //	@Failure		502		{object}	RestError
 //
-//	@Router			/search/ [get]
+//	@Router			/search/filter-fields [get]
 func SearchByLocation(_ *gin.Context) {
 	// some logic
 }
-
-// Locations
 
 // GetAllLocations godoc
 //
@@ -268,7 +398,7 @@ func SearchByLocation(_ *gin.Context) {
 //	@Failure		500		{object}	RestError
 //	@Failure		502		{object}	RestError
 //	@Router			/locations/ [get]
-func GetAllLocations(_ *gin.Context) {
+func GetAllLocations(ctx *gin.Context) {
 	// some logic
 }
 

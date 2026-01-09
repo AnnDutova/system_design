@@ -1,4 +1,4 @@
-package main
+package rest
 
 import (
 	"time"
@@ -32,12 +32,16 @@ type (
 	}
 
 	Location struct {
-		ID   types.UUID `json:"id"`
-		Name string     `json:"name" validate:"required" example:"Hamunaptra,Egypt"`
+		ID           types.UUID `json:"id"`
+		Name         string     `json:"name" validate:"required" example:"Hamunaptra,Egypt"`
+		Created      time.Time  `json:"created"`
+		LastModified string     `json:"last_modified"`
 	}
 
 	Rating struct {
-		Points uint8 `json:"point" validate:"required"`
+		Points       uint8     `json:"point" validate:"required"`
+		Created      time.Time `json:"created"`
+		LastModified string    `json:"last_modified"`
 	}
 
 	Subscribe struct {
@@ -77,7 +81,12 @@ type (
 		PostID       types.UUID `json:"post_id"`
 		LastModified string     `json:"last_modified"`
 	}
-	Search struct {
-		Location string `json:"location"`
+
+	RatingModel struct {
+		Points uint8 `json:"point" validate:"required"`
+	}
+
+	LocationModel struct {
+		Name string `json:"name"`
 	}
 )

@@ -35,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.CreateCommentModel"
+                            "$ref": "#/definitions/rest.CreateCommentModel"
                         }
                     }
                 ],
@@ -43,37 +43,37 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.Comment"
+                            "$ref": "#/definitions/rest.Comment"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -106,31 +106,31 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -154,7 +154,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.UpdateCommentModel"
+                            "$ref": "#/definitions/rest.UpdateCommentModel"
                         }
                     }
                 ],
@@ -162,37 +162,37 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.Comment"
+                            "$ref": "#/definitions/rest.Comment"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -233,32 +233,215 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.Location"
+                                "$ref": "#/definitions/rest.Location"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    }
+                }
+            }
+        },
+        "/locations/{id}": {
+            "post": {
+                "description": "Create new location",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "locations"
+                ],
+                "summary": "Create location",
+                "parameters": [
+                    {
+                        "description": "LocationModel object",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.LocationModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rest.Location"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "502": {
+                        "description": "Bad Gateway",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete location by specific id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "locations"
+                ],
+                "summary": "Delete location by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "location ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "502": {
+                        "description": "Bad Gateway",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update location by it id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "locations"
+                ],
+                "summary": "Update location",
+                "parameters": [
+                    {
+                        "description": "LocationModel object",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.LocationModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rest.Location"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "502": {
+                        "description": "Bad Gateway",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -306,32 +489,32 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.Post"
+                                "$ref": "#/definitions/rest.Post"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -372,32 +555,32 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/main.Post"
+                                "$ref": "#/definitions/rest.Post"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -421,7 +604,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.CreatePostModel"
+                            "$ref": "#/definitions/rest.CreatePostModel"
                         }
                     }
                 ],
@@ -429,37 +612,37 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/rest.Post"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -491,31 +674,31 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/rest.Post"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -548,31 +731,31 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -596,7 +779,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.UpdatePostModel"
+                            "$ref": "#/definitions/rest.UpdatePostModel"
                         }
                     }
                 ],
@@ -604,43 +787,43 @@ const docTemplate = `{
                     "202": {
                         "description": "Accepted",
                         "schema": {
-                            "$ref": "#/definitions/main.Post"
+                            "$ref": "#/definitions/rest.Post"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -686,31 +869,31 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.Comment"
+                            "$ref": "#/definitions/rest.Comment"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -728,7 +911,7 @@ const docTemplate = `{
                 "tags": [
                     "posts"
                 ],
-                "summary": "Retur post reating",
+                "summary": "Retur post rating",
                 "parameters": [
                     {
                         "type": "integer",
@@ -742,37 +925,222 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.Rating"
+                            "$ref": "#/definitions/rest.Rating"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
             }
         },
-        "/search/": {
+        "/rating/": {
+            "post": {
+                "description": "Create rating by it id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rating"
+                ],
+                "summary": "Create rating",
+                "parameters": [
+                    {
+                        "description": "RatingModel object",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.RatingModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rest.Rating"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "502": {
+                        "description": "Bad Gateway",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    }
+                }
+            }
+        },
+        "/rating/{id}": {
+            "delete": {
+                "description": "Delete rating by specific id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rating"
+                ],
+                "summary": "Delete rating by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "rating ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "502": {
+                        "description": "Bad Gateway",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update rating by it id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rating"
+                ],
+                "summary": "Update rating",
+                "parameters": [
+                    {
+                        "description": "RatingModel object",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.RatingModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rest.Rating"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    },
+                    "502": {
+                        "description": "Bad Gateway",
+                        "schema": {
+                            "$ref": "#/definitions/rest.RestError"
+                        }
+                    }
+                }
+            }
+        },
+        "/search/filter-fields": {
             "get": {
                 "description": "Search posts By Location name",
                 "consumes": [
@@ -782,7 +1150,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "comments"
+                    "locations"
                 ],
                 "summary": "Search posts By Location name",
                 "parameters": [
@@ -801,12 +1169,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Search object",
+                        "description": "LocationModel object",
                         "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.Search"
+                            "$ref": "#/definitions/rest.LocationModel"
                         }
                     }
                 ],
@@ -814,37 +1182,37 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/main.Comment"
+                            "$ref": "#/definitions/rest.Comment"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     },
                     "502": {
                         "description": "Bad Gateway",
                         "schema": {
-                            "$ref": "#/definitions/main.RestError"
+                            "$ref": "#/definitions/rest.RestError"
                         }
                     }
                 }
@@ -852,7 +1220,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "main.Comment": {
+        "rest.Comment": {
             "type": "object",
             "properties": {
                 "created": {
@@ -872,7 +1240,7 @@ const docTemplate = `{
                 }
             }
         },
-        "main.CreateCommentModel": {
+        "rest.CreateCommentModel": {
             "type": "object",
             "properties": {
                 "post_id": {
@@ -883,7 +1251,7 @@ const docTemplate = `{
                 }
             }
         },
-        "main.CreatePostModel": {
+        "rest.CreatePostModel": {
             "type": "object",
             "properties": {
                 "location_id": {
@@ -892,7 +1260,7 @@ const docTemplate = `{
                 "media": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/main.Media"
+                        "$ref": "#/definitions/rest.Media"
                     }
                 },
                 "text": {
@@ -900,13 +1268,19 @@ const docTemplate = `{
                 }
             }
         },
-        "main.Location": {
+        "rest.Location": {
             "type": "object",
             "required": [
                 "name"
             ],
             "properties": {
+                "created": {
+                    "type": "string"
+                },
                 "id": {
+                    "type": "string"
+                },
+                "last_modified": {
                     "type": "string"
                 },
                 "name": {
@@ -915,7 +1289,15 @@ const docTemplate = `{
                 }
             }
         },
-        "main.Media": {
+        "rest.LocationModel": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "rest.Media": {
             "type": "object",
             "properties": {
                 "photo": {
@@ -929,13 +1311,13 @@ const docTemplate = `{
                 }
             }
         },
-        "main.Post": {
+        "rest.Post": {
             "type": "object",
             "properties": {
                 "comments": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/main.Comment"
+                        "$ref": "#/definitions/rest.Comment"
                     }
                 },
                 "created": {
@@ -953,7 +1335,7 @@ const docTemplate = `{
                 "media": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/main.Media"
+                        "$ref": "#/definitions/rest.Media"
                     }
                 },
                 "text": {
@@ -964,7 +1346,24 @@ const docTemplate = `{
                 }
             }
         },
-        "main.Rating": {
+        "rest.Rating": {
+            "type": "object",
+            "required": [
+                "point"
+            ],
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "last_modified": {
+                    "type": "string"
+                },
+                "point": {
+                    "type": "integer"
+                }
+            }
+        },
+        "rest.RatingModel": {
             "type": "object",
             "required": [
                 "point"
@@ -975,7 +1374,7 @@ const docTemplate = `{
                 }
             }
         },
-        "main.RestError": {
+        "rest.RestError": {
             "type": "object",
             "properties": {
                 "additional_info": {
@@ -991,15 +1390,7 @@ const docTemplate = `{
                 }
             }
         },
-        "main.Search": {
-            "type": "object",
-            "properties": {
-                "location": {
-                    "type": "string"
-                }
-            }
-        },
-        "main.UpdateCommentModel": {
+        "rest.UpdateCommentModel": {
             "type": "object",
             "properties": {
                 "last_modified": {
@@ -1013,7 +1404,7 @@ const docTemplate = `{
                 }
             }
         },
-        "main.UpdatePostModel": {
+        "rest.UpdatePostModel": {
             "type": "object",
             "required": [
                 "last_modified"
@@ -1028,7 +1419,7 @@ const docTemplate = `{
                 "media": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/main.Media"
+                        "$ref": "#/definitions/rest.Media"
                     }
                 },
                 "text": {
@@ -1054,8 +1445,6 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API for getting, creating, updating  and deleting posts and other supported stuff",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	LeftDelim:        "{{",
-	RightDelim:       "}}",
 }
 
 func init() {
