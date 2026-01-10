@@ -231,6 +231,11 @@ Disks = 7650
 
 Media is a specific type of data which need a object storage db to handle it efficiently (S3 or Ceph). It's not necessary to use SSDs for this task, but it would be better because it would allow us to handle more traffic and use lowest amount of disks.
 
+- async master-slave replication with RF= 4
+- `Hosts = disks / disks_per_host  = 3256 / RAID5 16 disks (as the most effective configuration) = 230`
+- `Hosts_with_replication = hosts * replication_factor = 230 * 4 = 920`
+- key-based sharding by location_id
+
 ### Posts
 
 Dayly capacity (calculate all read operations) = `146 Kb/s * 2 * 86400 s = 24 GB/day`
@@ -265,8 +270,12 @@ Disks = 290
 
 #### Conclusion
 
-// TODO: TASK-4
 Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
+
+- async master-slave replication with RF=3
+- `Hosts = disks / disks_per_host  = 87 / RAID5 16 disks = 8`
+- `Hosts_with_replication = hosts * replication_factor = 8 * 3 = 24`
+- key-based sharding by user_id
 
 ### Comments
 
@@ -303,8 +312,11 @@ Disks = 85
 #### Conclusion
 
 Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
-// TODO: TASK-4
 
+- async master-slave replication with RF= 2
+- `Hosts = disks / disks_per_host  = 26 / RAID5 16 disks = 4`
+- `Hosts_with_replication = hosts * replication_factor = 4 * 2 = 8`
+- sharding seems redundant at the moment, but if it is needed it should be used key-based sharding by post_id
 
 ### Reactions
 
@@ -341,7 +353,11 @@ Disks = 85
 #### Conclusion
 
 Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
-// TODO: TASK-4
+
+- async master-slave replication with RF=2
+- `Hosts = disks / disks_per_host  = 4 / 2 = 2`
+- `Hosts_with_replication = hosts * replication_factor = 2 * 2 = 4`
+- sharding seems redundant at the moment, but if it is needed it should be used key-based sharding by post_id
 
 ### Subscriptions
 
@@ -379,4 +395,8 @@ Disks = 1
 #### Conclusion
 
 Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
-// TODO: TASK-4
+
+- async master-slave replication with RF=2
+- `Hosts = disks / disks_per_host  = 1 / 2 = 1`
+- `Hosts_with_replication = hosts * replication_factor = 1 * 2 = 2`
+- ыharding seems redundant at the moment, but if it is needed, should be used key-based sharding by user_id
