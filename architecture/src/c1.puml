@@ -1,0 +1,26 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User")
+
+System_Boundary(c1, "Travelers social network") {
+ Container(api_gw, "API-Gateway", "nginx", "Allows redirect requests to internal services")
+ Container(posts, "Posts service", "Golang, gRPC", "Manages and stores all information about posts")
+ Container(comments, "Comments service", "Golang, REST", "Manages and stores all information about comments")
+ Container(reactions, "Reactions service", "Golang, REST", "Manages and stores all information about users reactions")
+ Container(users, "Users service", "Golang, gRPC", "Stores all information about users, auth functionality and subscriptions")
+ Container(locations, "Locations service", "Golang, gRPC", "Stores all information about locations")
+}
+
+System_Ext(media, "media", "S3 service")
+
+Rel(user, api_gw, "Uses", "HTTPS")
+Rel(api_gw, posts, "Create/Get single post", "HTTPS")
+Rel(api_gw, comments, "Publish/Load comments to posts", "HTTPS")
+Rel(api_gw, reactions, "Set/Load reactions", "HTTPS")
+Rel(api_gw, users, "To apdate access token and subscribe to anouther person", "HTTPS")
+Rel(api_gw, locations, "Create new location point", "HTTPS")
+
+Rel(api_gw, media, "Gets media from external service", "HTTPS")
+Rel(user, media, "Load media assests", "HTTPS")
+@enduml
