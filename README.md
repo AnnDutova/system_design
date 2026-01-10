@@ -231,11 +231,6 @@ Disks = 7650
 
 Media is a specific type of data which need a object storage db to handle it efficiently (S3 or Ceph). It's not necessary to use SSDs for this task, but it would be better because it would allow us to handle more traffic and use lowest amount of disks.
 
-- async master-slave replication with RF= 4
-- `Hosts = disks / disks_per_host  = 3256 / RAID5 = 30`
-- `Hosts_with_replication = hosts * replication_factor = 30 * 4 = 120`
-- key-based sharding by place_id
-
 ### Posts
 
 Dayly capacity (calculate all read operations) = `146 Kb/s * 2 * 86400 s = 24 GB/day`
@@ -271,8 +266,7 @@ Disks = 290
 #### Conclusion
 
 // TODO: TASK-4
-
-
+Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
 
 ### Comments
 
@@ -308,6 +302,7 @@ Disks = 85
 
 #### Conclusion
 
+Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
 // TODO: TASK-4
 
 
@@ -345,6 +340,7 @@ Disks = 85
 
 #### Conclusion
 
+Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
 // TODO: TASK-4
 
 ### Subscriptions
@@ -382,4 +378,5 @@ Disks = 1
 
 #### Conclusion
 
+Due to the peculiarities of the data structure, it can be stored in a relational database as PostgreSQL.
 // TODO: TASK-4
