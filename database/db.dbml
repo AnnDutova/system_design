@@ -1,0 +1,111 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id uuid [pk]
+
+  name varchar [not null]
+  email varchar [not null]
+  password varchar [not null]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+}
+
+Table subscriptions {
+  user_id uuid [not null, ref: > users.id]
+  author_id uuid [not null, ref: > users.id]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+
+  indexes {
+    (user_id, created)
+    (author_id, created)
+  }
+}
+
+Table locations {
+  id uuid [pk]
+  name varchar [not null]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+}
+
+Table posts {
+  id uuid [pk]
+  description varchar(150) [not null]
+  user_id uuid [not null, ref: > users.id]
+  location_id uuid [not null, ref: > locations.id]
+
+  comment_count integer [default: 0]
+  rating integer [default: 0]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+
+  indexes {
+    (user_id, created)
+    (location_id, created)
+  }
+
+}
+
+Table ratings {
+  post_id uuid [not null, ref: > posts.id]
+  user_id uuid [not null, ref: > users.id]
+  value integer [default: 0]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+
+  indexes {
+    (post_id, user_id) [unique]
+    post_id
+    user_id
+  }
+}
+
+Table comments {
+  id uuid [pk]
+  post_id uuid [not null, ref: > posts.id]
+  user_id uuid [not null, ref: > users.id]
+  message varchar(30) [not null]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+
+  indexes {
+    post_id
+    created
+  }
+}
+
+Table media {
+  id uuid [pk]
+  
+  file_name varchar [not null]
+  mime_type varchar [not null]
+  content blob [not null]
+
+  created timestamp [default: `now()`]
+  last_modified timestamp [default: `now()`]
+
+  indexes {
+    id
+    created
+  }
+}
+
+Table post_attachments {
+  id uuid [pk]
+  post_id uuid [not null, ref: > posts.id]
+  media_id uuid [not null, ref: > media.id]
+  position integer
+
+  indexes {
+    (post_id, media_id) [unique]
+    post_id
+  }
+}
