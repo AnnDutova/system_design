@@ -44,6 +44,11 @@ Homework for course of System Design. A web service for a social network for tra
     - Searching no more than 2 second;
     - Following / Unfollowing user no more 1 second;
 
+# Architecture
+The C4 model of levels C1 and C2 is used to describe the architecture.
+
+![c1_travelers_social_network](./architecture/diagram/c1_travelers.png)
+
 # Basic calculations
 
 ## RPS 
